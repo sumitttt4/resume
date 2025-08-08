@@ -306,7 +306,7 @@ export default function TemplatesPage() {
             Experience
           </h2>
           <div className="space-y-4">
-            {displayData.experience.map((exp, index) => (
+                         {displayData.experience.map((exp) => (
               <div key={exp.id} className="bg-white rounded-lg p-6 shadow-md transform hover:scale-105 transition-transform">
                 <div className="flex items-start justify-between mb-3">
                   <div>

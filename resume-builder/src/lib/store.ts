@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 
 // Types for resume data
 export interface PersonalInfo {
@@ -137,7 +137,7 @@ export const RESUME_TEMPLATES: ResumeTemplate[] = [
 // Create the store
 export const useAppStore = create<AppState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // Initial state
       user: null,
       isAuthenticated: false,

@@ -55,8 +55,7 @@ export default function EditPage() {
     register,
     handleSubmit,
     control,
-    formState: { errors },
-    watch
+    formState: { errors }
   } = useForm<ResumeFormData>({
     resolver: zodResolver(resumeSchema),
     defaultValues: {

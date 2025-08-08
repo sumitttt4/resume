@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -26,21 +26,19 @@ const linkedinSchema = z.object({
 
 type LinkedinFormData = z.infer<typeof linkedinSchema>
 
-export default function InputMethodPage() {
+function InputMethodContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { setInputMethod, setCurrentStep } = useAppStore()
   
   const [selectedMethod, setSelectedMethod] = useState<'upload' | 'manual' | 'linkedin' | null>(null)
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
-  const [linkedinUrl, setLinkedinUrl] = useState('')
 
   // LinkedIn form handling
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    setValue,
     watch
   } = useForm<LinkedinFormData>({
     resolver: zodResolver(linkedinSchema),
@@ -98,7 +96,7 @@ export default function InputMethodPage() {
   }
 
   const onLinkedinSubmit = (data: LinkedinFormData) => {
-    setLinkedinUrl(data.linkedinUrl)
+    console.log('LinkedIn data:', data.linkedinUrl)
     setSelectedMethod('linkedin')
   }
 
@@ -305,7 +303,7 @@ export default function InputMethodPage() {
                 </div>
                 <div className="text-xs text-gray-500 space-y-1">
                   <p>• Make sure your profile is public</p>
-                  <p>• We'll import your work experience and education</p>
+                  <p>• We&apos;ll import your work experience and education</p>
                   <p>• You can edit everything afterward</p>
                 </div>
                 {isValid && watchedLinkedinUrl && (
@@ -376,5 +374,13 @@ export default function InputMethodPage() {
         )}
       </main>
     </div>
+  )
+}
+
+export default function InputMethodPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center"><div className="text-lg">Loading...</div></div>}>
+      <InputMethodContent />
+    </Suspense>
   )
 }

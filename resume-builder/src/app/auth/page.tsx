@@ -52,7 +52,7 @@ export default function AuthPage() {
       } else {
         setLoginError('Invalid email or password. Try demo@example.com / password')
       }
-    } catch (error) {
+    } catch {
       setLoginError('An error occurred. Please try again.')
     } finally {
       setIsLoading(false)
@@ -243,7 +243,7 @@ export default function AuthPage() {
             {/* Sign Up Link */}
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <button
                   className="text-blue-600 hover:text-blue-500 font-medium"
                   onClick={() => alert('Sign up functionality would be implemented here')}
